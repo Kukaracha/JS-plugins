@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Smart Preload jQuery Plugin</title>
+
+    <script src="jquery-1.4.4.min.js" type="text/javascript"></script>
+
+    <script src="smartpreload.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var counter = 0;
+        $(document).ready(function() {
+            $('#overlay').css('z-index', '10000');
+
+            $('#demo div img').attr('src', 'loading.gif').addClass('loading');
+            $('#overlay img').css("position", "absolute");
+            $('#overlay img').css("top", $(window).height() / 2 + $(window).scrollTop() + "px");
+            $('#overlay img').css("left", $(window).width() / 2 + $(window).scrollLeft() + "px");
+
+            $(document).smartpreload({ images: ['images/super_nova.jpg', 'images/pacific-ocean-from-space.jpg', 'images/dark_sun_dawn.jpg', 'images/abstract_lake.jpg', 'images/abstract_brushes.jpg', 'images/earth.jpg', 'images/moon-arc.jpg', 'images/moon-day.jpg','images/saguaroMoon_seip.jpg','images/solar-system.jpg','images/space.jpg','images/tricompSW.jpg'], oneachimageload: function(src) {
+                ++counter;
+                if (counter == 1) preview(src);
+                $('#' + counter).attr('src', src).css('cursor', 'pointer').removeClass('loading').addClass('normal').click(function() {
+                    preview(src);
+                });
+            }, onloadall: function() {
+                $('#overlay').css('display', 'none');
+            }
+            });
+
+            function preview(src) {
+
+                var img = $('<img/>').attr('src', src).css('width', '100%').css('height', '100%').css('display', 'none');
+                $('#preview').find('img').remove();
+                $('#preview').append(img);
+                img.fadeIn("5000", function() { img.css('border-radius', '8px').css('-moz-border-radius', '8px') });
+            }
+
+        });
+    </script>
+
+    <style type="text/css">
+        body
+        {
+            background-color: #333333;
+        }
+        #demo
+        {
+            margin: auto;
+            width: 560px;
+            height: 420px;
+            padding-top: 30px;
+            border-radius: 8px;
+            -moz-border-radius: 8px;
+            background-color: #202020;
+        }
+        #demo #wrapper
+        {
+            width: 100%;
+            height: 380px;
+            background-color: #202020;
+        }
+        #demo div.container
+        {
+            float: left;
+            width: 120px;
+            height: 120px;
+            padding: 4px;
+            margin-top: 8px;
+            margin-left: 10px;
+            background-color: White;
+            border-radius: 8px;
+            -moz-border-radius: 8px;
+        }
+        #demo div img.normal
+        {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            -moz-border-radius: 8px;
+        }
+        #demo div img.loading
+        {
+            width: 24px;
+            height: 24px;
+        }
+        #demo #preview
+        {
+            width: 90%;
+            height: 300px;
+            margin-left: 30px;
+            margin-bottom: 30px;
+            background-color: White;
+            border-radius: 8px;
+            -moz-border-radius: 8px;
+        }
+        #overlay
+        {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            filter: alpha(opacity=60); /* CSS3 standard */
+            opacity: 0.6;
+            position: absolute;
+        }
+        #overlay img
+        {
+            position: absolute;
+        }
+        #overlay div p
+        {
+            color: black;
+            font-weight: bold;
+            font-family:Sans-Serif;
+            font-size:1.0em;
+            line-height:1.0em;
+        }
+        .clear
+        {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <div style="text-align:left;margin:auto;width:620px;padding-top:20px;">
+            <p>
+                This demo shows the use of preload pugin, it utilizes following callback functions</p>
+            <p>
+                1) oneachimageload</p>
+            <p>
+                2) onloadall</p>
+            <p>
+                See when each image is loaded the image place holder displays the image.
+            </p>
+            <p>
+                Also when all the images are loaded overlay is removed via "onloadall" callback
+                function.</p>
+        </div>
+    </div>
+    <div id="demo">
+        <div id="wrapper">
+            <div class="container">
+                <img id="1" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="2" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="3" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="4" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="5" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="6" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="7" />
+                <div class="clear">
+                </div>
+            </div>
+            <div class="container">
+                <img id="8" />
+                <div class="clear">
+                </div>
+            </div>
+             <div class="container">
+                <img id="9" />
+                <div class="clear">
+                </div>
+            </div>
+             <div class="container">
+                <img id="10" />
+                <div class="clear">
+                </div>
+            </div>
+             <div class="container">
+                <img id="11" />
+                <div class="clear">
+                </div>
+            </div>
+             <div class="container">
+                <img id="12" />
+                <div class="clear">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
